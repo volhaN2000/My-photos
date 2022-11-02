@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Scan Photo";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scan Photo - MyPhotos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin"/>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;600;700&amp;display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;600;700&amp;display=swap" media="print" onload="this.media='all'"/>
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;600;700&amp;display=swap"/>
+    </noscript>
+    <link href="~/css/bootstrap.min.css?ver=1.2.0" rel="stylesheet">
+    <link href="~/css/font-awesome/css/all.min.css?ver=1.2.0" rel="stylesheet">
+    <link href="~/css/main.css?ver=1.2.0" rel="stylesheet">
+  </head>
+
+<h1>@ViewData["Title"]</h1> 
+@{
+        if (User.Identity.IsAuthenticated)
+        {
+
+
+
+
+
+<h2>Hello @User.Identity.Name ! </h2>
+<h2>Select a photo to upload and scan </h2>
+@using (Html.BeginForm("ScanPhoto","ScanPhoto",FormMethod.Post,new{@enctype="multipart/form-data"}))
+{ 
+ 
+    <br/> <span style="color:teal; font-weight:bold"> @ViewBag.message </span>
+   // <br/> <span style="color:teal; font-weight:bold"> @ViewBag.ScanResult </span>
+
+    <div style="background-color:#f5f5dc; text-align:center; border-radius:10px;width:540px;">
+  
+ <span > @ViewBag.scanResults </span>
+        <br/>
+        </div>
+    <input type = "file" name="userfile"/>
+    <br/>
+        <input class="btn btn-primary" type = "submit" value = "Upload File" name = "Upload File"/>
+
+
+}
+}
+else 
+{
+    <h2>Please login first ! </h2>
+}
+}

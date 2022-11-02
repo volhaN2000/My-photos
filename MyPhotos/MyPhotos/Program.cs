@@ -3,6 +3,22 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using MyPhotos.Areas.Identity.Data;
 using MyPhotos.Services;
+using System;
+using System.Collections.Generic;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Threading;
+using System.Linq;
+
+
+
+// See https://aka.ms/new-console-template for more information
+const string SUBSCRIPTION_KEY = "dfa5543e585e429fafb3ffd14b02d197";
+const string ENDPOINT = "https://facial-recognition-tms.cognitiveservices.azure.com/";
 
 
 
@@ -43,3 +59,4 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 app.Run();
+
