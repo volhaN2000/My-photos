@@ -13,8 +13,10 @@ namespace MyPhotos.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index() { 
-             try {
+        public IActionResult Index()
+        {
+            try
+            {
                 var directory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name));
                 FileInfo[] files = directory.GetFiles();
                 int i = 0;
@@ -24,15 +26,15 @@ namespace MyPhotos.Controllers
 
 
                 ViewBag.Path = Path.Combine("\\Files\\", User.Identity.Name);
-             }
+            }
 
             catch (Exception ex)
             {
-                ViewBag.message = "Error "+ex.Message.ToString();
+                ViewBag.message = "Error " + ex.Message.ToString();
             }
 
 
-return View();
+            return View();
         }
 
         public IActionResult Albums()
@@ -50,11 +52,11 @@ return View();
                 DirectoryInfo[] directories = directory.GetDirectories();
                 new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name));
                 string directoriesname = "";
-                List <string> people=new List<string>();
+                List<string> people = new List<string>();
                 List<int> numbOfCardswthPerson = new List<int>();
                 int k = 0;
                 foreach (DirectoryInfo directory_ in directories)
-               {
+                {
                     k++;
                     directoriesname += directory_.Name;
                     people.Add(directory_.Name);
@@ -67,7 +69,7 @@ return View();
                     numbOfCardswthPerson.Add(j);
                 }
                 ViewBag.peoplenumber = k;
-                ViewBag.people =people;
+                ViewBag.people = people;
                 ViewBag.numbOfCardswthPerson = numbOfCardswthPerson;
 
                 ViewBag.Path = Path.Combine("\\Files\\", User.Identity.Name);
@@ -99,12 +101,16 @@ return View();
         [HttpPost]
         public IActionResult UploadPhoto(IFormFile userfile)
         {
-            try { 
-            string filename = userfile.FileName;
-            filename = Path.GetFileName(filename);
+            try
+            {
+                string filename = userfile.FileName;
+                filename = Path.GetFileName(filename);
                 bool directory_exists = Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name));
-                if (!directory_exists) { Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name));
-                    filename = "image0.jpg"; }
+                if (!directory_exists)
+                {
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name));
+                    filename = "image0.jpg";
+                }
                 else
                 {
                     var directory = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name));
@@ -114,14 +120,14 @@ return View();
                     { i++; }
                     filename = "image" + i + ".jpg";
                 }
-               
+
 
                 string uploadfilepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name, filename);
-              
-         var stream = new FileStream(uploadfilepath, FileMode.Create);
-            userfile.CopyToAsync(stream);
-            ViewBag.message = "File uploaded successfully";
-                 ViewBag.Path = Path.Combine("\\Files\\", User.Identity.Name, filename); 
+
+                var stream = new FileStream(uploadfilepath, FileMode.Create);
+                userfile.CopyToAsync(stream);
+                ViewBag.message = "File uploaded successfully";
+                ViewBag.Path = Path.Combine("\\Files\\", User.Identity.Name, filename);
                 //string directory_path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files\\", User.Identity.Name);
 
                 //foreach (System.IO.File f in directory_path)
@@ -135,9 +141,9 @@ return View();
 
             catch (Exception ex)
             {
-                ViewBag.message = "Error "+ex.Message.ToString();
+                ViewBag.message = "Error " + ex.Message.ToString();
             }
-       
+
             return View();
         }
 

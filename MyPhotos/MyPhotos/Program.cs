@@ -15,26 +15,16 @@ using System.Threading;
 using System.Linq;
 
 
-
-// See https://aka.ms/new-console-template for more information
-const string SUBSCRIPTION_KEY = "dfa5543e585e429fafb3ffd14b02d197";
-const string ENDPOINT = "https://facial-recognition-tms.cognitiveservices.azure.com/";
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MyPhotosDbContextConnection") ?? throw new InvalidOperationException("Connection string 'MyPhotosDbContextConnection' not found.");
 
 builder.Services.AddDbContext<MyPhotosDbContext>(options =>
     options.UseSqlServer(connectionString));
-
 builder.Services.AddDefaultIdentity<MyPhotosUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<MyPhotosDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,7 +39,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 
